@@ -1,5 +1,6 @@
 package com.adamkobus.android.vm
 
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -9,7 +10,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.Timeout
-import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
@@ -20,6 +20,7 @@ class ViewParamTest {
     @Rule
     val timeoutRule = Timeout(10, TimeUnit.SECONDS)
 
+    private val deferred = CompletableDeferred<Unit>()
     private val testSubject = ViewParam<Int>()
 
     @Test
@@ -27,7 +28,6 @@ class ViewParamTest {
         // given
         val expectedValue = Random.nextInt()
         testSubject.bind(expectedValue)
-        val latch = CountDownLatch(1)
 
         // when
         val job = launch(Dispatchers.IO) {
@@ -35,10 +35,10 @@ class ViewParamTest {
 
                 // then
                 assertEquals(expectedValue, obtained)
-                latch.countDown()
+                deferred.complete(Unit)
             }
         }
-        latch.await()
+        deferred.await()
         job.cancel()
     }
 
