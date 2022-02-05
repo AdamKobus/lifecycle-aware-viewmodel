@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">LifecycleAwareViewModel</string>
+
+    <!-- Accessibility -->
+    <string name="accessibility_back">Back</string>
+
+    <!-- Home screen -->
+    <string name="home_title">Home</string>
+    <string name="home_open_logs_button">Open Logs</string>
+
+    <!-- Logs screen -->
+    <string name="logs_title">Logs</string>
+
+    <!-- Demo dialog -->
+    <string name="demo_dialog_content">Showing this dialog should pause the Logs screen.</string>
+    <string name="demo_dialog_dismiss">OK</string>
+</resources>
