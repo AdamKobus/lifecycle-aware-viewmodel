@@ -8,13 +8,15 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.Timeout
 import java.util.concurrent.TimeUnit
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class LifecycleObserverKtxTest {
 
     @JvmField
@@ -32,7 +34,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN start task registered with runOnCreateDestroy WHEN ON_CREATE THEN task is executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnCreateDestroy WHEN ON_CREATE THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnCreateDestroy { onCreate = suspendTask }
@@ -45,7 +47,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN start task registered with runOnCreateDestroy WHEN not ON_CREATE THEN task not executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnCreateDestroy WHEN not ON_CREATE THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnCreateDestroy { onCreate = suspendTask }
@@ -59,7 +61,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnCreateDestroy WHEN ON_DESTROY THEN task is executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnCreateDestroy WHEN ON_DESTROY THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnCreateDestroy { onDestroy = task }
@@ -72,7 +74,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnCreateDestroy WHEN not ON_DESTROY THEN task not executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnCreateDestroy WHEN not ON_DESTROY THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnCreateDestroy { onDestroy = task }
@@ -86,7 +88,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN start task registered with runOnStartStop WHEN ON_START THEN task is executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnStartStop WHEN ON_START THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnStartStop { onStart = suspendTask }
@@ -99,7 +101,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN start task registered with runOnStartStop WHEN not ON_START THEN task not executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnStartStop WHEN not ON_START THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnStartStop { onStart = suspendTask }
@@ -113,7 +115,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnStartStop WHEN ON_STOP THEN task is executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnStartStop WHEN ON_STOP THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnStartStop { onStop = task }
@@ -126,7 +128,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnStartStop WHEN not ON_STOP THEN task not executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnStartStop WHEN not ON_STOP THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnStartStop { onStop = task }
@@ -140,7 +142,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN start task registered with runOnResumePause WHEN ON_RESUME THEN task is executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnResumePause WHEN ON_RESUME THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnResumePause { onResume = suspendTask }
@@ -153,7 +155,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN start task registered with runOnResumePause WHEN not ON_RESUME THEN task not executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnResumePause WHEN not ON_RESUME THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnResumePause { onResume = suspendTask }
@@ -167,7 +169,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnStartStop WHEN ON_PAUSE THEN task is executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnStartStop WHEN ON_PAUSE THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnResumePause { onPause = task }
@@ -180,7 +182,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnStartStop WHEN not ON_PAUSE THEN task not executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnStartStop WHEN not ON_PAUSE THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnResumePause { onPause = task }
@@ -196,7 +198,7 @@ class LifecycleObserverKtxTest {
     // single event registration
 
     @Test
-    fun `GIVEN start task registered with runOnCreate WHEN ON_CREATE THEN task is executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnCreate WHEN ON_CREATE THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnCreate(suspendTask)
@@ -209,7 +211,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN start task registered with runOnCreate WHEN not ON_CREATE THEN task not executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnCreate WHEN not ON_CREATE THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnCreate(suspendTask)
@@ -223,7 +225,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnDestroy WHEN ON_DESTOY THEN task is executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnDestroy WHEN ON_DESTOY THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnDestroy(task)
@@ -236,7 +238,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnDestroy WHEN not ON_DESTOY THEN task not executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnDestroy WHEN not ON_DESTOY THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnDestroy(task)
@@ -250,7 +252,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN start task registered with runOnStart WHEN ON_START THEN task is executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnStart WHEN ON_START THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnStart(suspendTask)
@@ -263,7 +265,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN start task registered with runOnStart WHEN not ON_START THEN task not executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnStart WHEN not ON_START THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnStart(suspendTask)
@@ -277,7 +279,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnStop WHEN ON_STOP THEN task is executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnStop WHEN ON_STOP THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnStop(task)
@@ -290,7 +292,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnDestroy WHEN not ON_STOP THEN task not executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnDestroy WHEN not ON_STOP THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnStop(task)
@@ -304,7 +306,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN start task registered with runOnResume WHEN ON_RESUME THEN task is executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnResume WHEN ON_RESUME THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnResume(suspendTask)
@@ -317,7 +319,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN start task registered with runOnResume WHEN not ON_RESUME THEN task not executed`() = runBlocking {
+    fun `GIVEN start task registered with runOnResume WHEN not ON_RESUME THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnResume(suspendTask)
@@ -331,7 +333,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnPause WHEN ON_PAUSE THEN task is executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnPause WHEN ON_PAUSE THEN task is executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnPause(task)
@@ -344,7 +346,7 @@ class LifecycleObserverKtxTest {
     }
 
     @Test
-    fun `GIVEN stop task registered with runOnPause WHEN not ON_PAUSE THEN task not executed`() = runBlocking {
+    fun `GIVEN stop task registered with runOnPause WHEN not ON_PAUSE THEN task not executed`() = runTest {
         // given
         val testSubject = testSubject(this)
         testSubject.runOnPause(task)

@@ -1,9 +1,10 @@
 package com.adamkobus.android.vm
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -12,6 +13,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ViewParamTest {
 
     @JvmField
@@ -21,7 +23,7 @@ class ViewParamTest {
     private val testSubject = ViewParam<Int>()
 
     @Test
-    fun `GIVEN bound value WHEN collect THEN offered value is collected`() = runBlocking {
+    fun `GIVEN bound value WHEN collect THEN offered value is collected`() = runTest {
         // given
         val expectedValue = Random.nextInt()
         testSubject.bind(expectedValue)
@@ -41,7 +43,7 @@ class ViewParamTest {
     }
 
     @Test
-    fun `GIVEN bound value WHEN observe THEN offered value is collected`() = runBlocking {
+    fun `GIVEN bound value WHEN observe THEN offered value is collected`() = runTest {
         // given
         val expectedValue = Random.nextInt()
         testSubject.bind(expectedValue)
