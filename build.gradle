@@ -1,0 +1,58 @@
+import com.adamkobus.vm.Libs
+
+apply plugin: "io.github.gradle-nexus.publish-plugin"
+apply plugin: "com.github.ben-manes.versions"
+
+buildscript {
+    ext {
+        // https://github.com/JLLeitschuh/ktlint-gradle/releases
+        ktlintPluginVersion = "10.2.1"
+
+        // https://github.com/detekt/detekt/releases
+        detektPluginVersion = "1.19.0"
+
+        // https://github.com/ben-manes/gradle-versions-plugin/releases
+        versionsPluginVersion = "0.41.0"
+
+        // https://github.com/gradle-nexus/publish-plugin/releases
+        publishPluginVersion = "1.1.0"
+
+        // https://developer.android.com/studio/releases/gradle-plugin
+        androidGradlePluginVersion = "7.1.0"
+
+        // https://kotlinlang.org/docs/releases.html#release-details
+        kotlinVersion = "1.6.0"
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:$androidGradlePluginVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintPluginVersion"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektPluginVersion"
+        classpath "com.github.ben-manes:gradle-versions-plugin:$versionsPluginVersion"
+        classpath "io.github.gradle-nexus:publish-plugin:$publishPluginVersion"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:${Libs.HILT_VERSION}"
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+allprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+        }
+    }
+}
+
+apply from: "gradle/dependency-updates.gradle"
+apply from: "gradle/android-setup.gradle"
+apply from: "gradle/publishing-root.gradle"

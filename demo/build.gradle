@@ -1,0 +1,50 @@
+import com.adamkobus.vm.Libs
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    defaultConfig {
+        applicationId "com.adamkobus.android.lifecyclevm.demo"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion Libs.COMPOSE_VERSION
+    }
+}
+
+dependencies {
+    implementation project(':lifecycle-observer-viewmodel-ktx')
+    implementation Libs.AndroidX.Appcompat
+    implementation Libs.Kotlin.Coroutines
+
+    // hilt
+    implementation Libs.Google.Hilt
+    implementation Libs.Google.HiltNavigationCompose
+    kapt Libs.Google.HiltCompiler
+
+    // compose
+    implementation Libs.Compose.Ui
+    implementation Libs.Compose.Activity
+    implementation Libs.Compose.Material
+    implementation Libs.Compose.ToolingPreview
+    implementation Libs.Google.Material
+    implementation Libs.AdamKobus.Navigation
+    implementation Libs.Accompanist.NavigationAnimation
+    debugImplementation Libs.Compose.UiTooling
+
+    // testing
+    testImplementation Libs.Test.JUnit
+    testImplementation Libs.Test.Mockk
+}
