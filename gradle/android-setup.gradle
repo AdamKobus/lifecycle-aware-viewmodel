@@ -37,6 +37,12 @@ def configureAndroidProject(Project androidProject, boolean isApplication) {
             }
         }
 
+        buildTypes {
+            debug {
+                testCoverageEnabled true
+            }
+        }
+
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_11
             targetCompatibility JavaVersion.VERSION_11
@@ -46,6 +52,10 @@ def configureAndroidProject(Project androidProject, boolean isApplication) {
             resources {
                 excludes += "/META-INF/{AL2.0,LGPL2.1}"
             }
+        }
+
+        testOptions.unitTests {
+            returnDefaultValues = true
         }
     }
 }
