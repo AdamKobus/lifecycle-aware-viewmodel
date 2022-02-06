@@ -4,6 +4,9 @@ on:
   release:
     types: [released]
 
+env:
+  MAVEN_SNAPSHOT: false
+
 jobs:
   publish:
     name: Publish release build
@@ -30,8 +33,6 @@ jobs:
 
       - name: Publish to MavenCentral
         run: ./gradlew publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseSonatypeStagingRepository
-        env:
-          MAVEN_SNAPSHOT: false
 
       - name: Clean up secrets
         if: always()
