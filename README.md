@@ -39,10 +39,10 @@ repositories {
 
 dependencies {
     // LifecycleObserverKtx
-    implementation "com.adamkobus:lifecycle-observer-ktx:0.0.1-SNAPSHOT"
+    implementation "com.adamkobus:lifecycle-observer-ktx:1.0.0-SNAPSHOT"
 
     // LifecycleObserverKtx + LifecycleAwareViewModel + ViewParam
-    implementation "com.adamkobus:lifecycle-observer-viewmodel-ktx:0.0.1-SNAPSHOT"
+    implementation "com.adamkobus:lifecycle-observer-viewmodel-ktx:1.0.0-SNAPSHOT"
 }
 ```
 

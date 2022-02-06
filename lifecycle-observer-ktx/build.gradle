@@ -16,6 +16,7 @@ dependencies {
     // testing
     testImplementation Libs.Test.JUnit
     testImplementation Libs.Test.Mockk
+    testImplementation Libs.Test.CoroutinesTest
 }
 
 ext {
