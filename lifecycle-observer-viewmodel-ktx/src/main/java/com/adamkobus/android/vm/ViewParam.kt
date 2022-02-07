@@ -41,5 +41,13 @@ class ViewParam<T> {
 sealed class ViewParamState<T>(val getValue: () -> T) {
     class Missing<T> : ViewParamState<T>({ throw IllegalStateException("Tried to access the value when it's missing") })
 
-    class Present<T>(val value: T) : ViewParamState<T>({ value })
+    class Present<T>(val value: T) : ViewParamState<T>({ value }) {
+        override fun equals(other: Any?): Boolean {
+            return other is Present<*> && other.value == value
+        }
+
+        override fun hashCode(): Int {
+            return value?.hashCode() ?: 0
+        }
+    }
 }
