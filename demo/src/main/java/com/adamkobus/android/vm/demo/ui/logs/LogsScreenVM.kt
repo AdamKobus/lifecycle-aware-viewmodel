@@ -7,14 +7,14 @@ import com.adamkobus.android.vm.LifecycleAwareViewModel
 import com.adamkobus.android.vm.demo.model.datetime.DemoDateFormatter
 import com.adamkobus.android.vm.demo.model.logs.DemoLogsStore
 import com.adamkobus.android.vm.demo.nav.FromLogs
-import com.adamkobus.compose.navigation.NavActionConsumer
+import com.adamkobus.compose.navigation.NavigationConsumer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LogsScreenVM @Inject constructor(
     private val logsStore: DemoLogsStore,
-    private val navActionConsumer: NavActionConsumer,
+    private val navigationConsumer: NavigationConsumer,
     private val dateFormatter: DemoDateFormatter
 ) : LifecycleAwareViewModel() {
 
@@ -29,12 +29,12 @@ class LogsScreenVM @Inject constructor(
     val interactions = LogsInteractions(
         onLogClicked = { item ->
             runOnMain {
-                navActionConsumer.offer(FromLogs.ToDemoDialog(item.id))
+                navigationConsumer.offer(FromLogs.ToDemoDialog(item.id))
             }
         },
         onBackClicked = {
             runOnMain {
-                navActionConsumer.offer(FromLogs.Back)
+                navigationConsumer.offer(FromLogs.Back)
             }
         }
     )

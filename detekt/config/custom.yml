@@ -3,14 +3,6 @@ naming:
     ignoreAnnotated:
       - Composable
 
-formatting:
-  ArgumentListWrapping:
-    maxLineLength: 140
-  MaximumLineLength:
-    maxLineLength: 140
-  ParameterListWrapping:
-    maxLineLength: 140
-
 style:
   MaxLineLength:
     maxLineLength: 140
@@ -21,6 +13,13 @@ style:
     active: true
     ignoreAnnotated:
       - 'Module'
+  ReturnCount:
+    active: true
+    max: 3
+    excludedFunctions: 'equals'
+    excludeLabeled: false
+    excludeReturnFromLambda: true
+    excludeGuardClauses: false
 
 complexity:
   TooManyFunctions:
