@@ -4,6 +4,12 @@
 
 ### Changes
 
+# 1.0.2
+
+### Changes
+
+- Updated AGP to 7.2.2
+
 # 1.0.1
 
 ### Fixes

@@ -6,22 +6,22 @@ apply plugin: "com.github.ben-manes.versions"
 buildscript {
     ext {
         // https://github.com/JLLeitschuh/ktlint-gradle/releases
-        ktlintPluginVersion = "10.2.1"
+        ktlintPluginVersion = "10.3.0"
 
         // https://github.com/detekt/detekt/releases
-        detektPluginVersion = "1.19.0"
+        detektPluginVersion = "1.21.0"
 
         // https://github.com/ben-manes/gradle-versions-plugin/releases
-        versionsPluginVersion = "0.41.0"
+        versionsPluginVersion = "0.42.0"
 
         // https://github.com/gradle-nexus/publish-plugin/releases
         publishPluginVersion = "1.1.0"
 
         // https://developer.android.com/studio/releases/gradle-plugin
-        androidGradlePluginVersion = "7.1.0"
+        androidGradlePluginVersion = "7.2.2"
 
         // https://kotlinlang.org/docs/releases.html#release-details
-        kotlinVersion = "1.6.0"
+        kotlinVersion = "1.7.10"
     }
 
     repositories {

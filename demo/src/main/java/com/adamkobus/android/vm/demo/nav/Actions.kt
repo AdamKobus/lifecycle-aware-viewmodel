@@ -1,24 +1,18 @@
 package com.adamkobus.android.vm.demo.nav
 
-import com.adamkobus.compose.navigation.data.NavAction
-import com.adamkobus.compose.navigation.data.PopBackStackDestination
+import com.adamkobus.compose.navigation.action.NavAction
+import com.adamkobus.compose.navigation.action.NavActionWrapper
 
-sealed class FromHome(navAction: NavAction) : NavAction(navAction) {
+sealed class FromHome(navAction: NavAction) : NavActionWrapper(navAction) {
 
-    object ToLogsList : FromHome(DemoGraph.Home to DemoGraph.LogsList)
+    object ToLogsList : FromHome(DemoGraph.Home goTo DemoGraph.LogsList)
 }
 
-sealed class FromDemoDialog(navAction: NavAction) : NavAction(navAction) {
-    object Dismiss : FromDemoDialog(
-        NavAction(
-            DemoGraph.DemoDialog,
-            PopBackStackDestination,
-            navigateWithController = { it.popBackStack() }
-        )
-    )
+sealed class FromDemoDialog(navAction: NavAction) : NavActionWrapper(navAction) {
+    object Dismiss : FromDemoDialog(DemoGraph.DemoDialog.pop())
 }
 
-sealed class FromLogs(navAction: NavAction) : NavAction(navAction) {
-    class ToDemoDialog(logId: Int) : NavAction(DemoGraph.LogsList to DemoGraph.DemoDialog arg logId)
-    object Back : NavAction(DemoGraph.LogsList, PopBackStackDestination, navigateWithController = { it.popBackStack() })
+sealed class FromLogs(navAction: NavAction) : NavActionWrapper(navAction) {
+    class ToDemoDialog(logId: Int) : FromLogs(DemoGraph.LogsList goTo DemoGraph.DemoDialog arg logId)
+    object Back : FromLogs(DemoGraph.LogsList.pop())
 }

@@ -20,7 +20,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion Libs.COMPOSE_VERSION
+        kotlinCompilerExtensionVersion Libs.COMPOSE_COMPILER_VERSION
     }
 }
 
